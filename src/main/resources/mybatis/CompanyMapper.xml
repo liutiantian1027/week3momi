@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ltt.mapper.CompanyMapper">
+	<select id="getComList" resultType="com.ltt.beans.Company">
+		SELECT * FROM biz_company c LEFT JOIN biz_type t ON c.`tid`=t.`tid`
+		<where>
+			<if test="null!=name and name!=''">
+				and name like '%${name}%'
+			</if>
+			<if test="null!=tname and tname!=''">
+				and name like '%${tname}%'
+			</if>
+		</where>
+	</select>
+	<insert id="add">
+		insert into biz_company set name=#{name},corporation=#{corporation},address=#{address},capital=#{capital},
+		regist_no=#{regist_no},tid=#{tid},created=#{created},period=#{period}
+	</insert>
+</mapper>
